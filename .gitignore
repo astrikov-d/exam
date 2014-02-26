@@ -1,0 +1,12 @@
+# PyCharm
+.idea
+
+# Python
+*.pyc
+
+# Project
+manage.py
+wsgi.py
+
+# Virtual environment
+/venv/

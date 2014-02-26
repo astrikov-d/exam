@@ -1,0 +1,52 @@
+{% extends "base/base.html" %}
+
+{% block js %}
+    <script src="{{ STATIC_URL }}assets/jqueryui/js/jquery-ui-1.10.4.custom.min.js"></script>
+    <script src="{{ STATIC_URL }}js/app/index.js"></script>
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}assets/jqueryui/css/ui-lightness/jquery-ui-1.10.4.custom.min.css"/>
+{% endblock %}
+
+{% block content %}
+    {% csrf_token %}
+    <div class="menu-wrapper">
+        <ul>
+            <li class="active">
+                <a href="#" class="tab-switcher" data-tab-id="id-users">Пользователи</a>
+            </li>
+            <li>
+                <a href="#" class="tab-switcher" data-tab-id="id-rooms">Комнаты</a>
+            </li>
+        </ul>
+    </div>
+    <div class="table-wrapper">
+        <div class="tab active">
+            <h1>Пользователи</h1>
+            <table class="data-table" data-model="users">
+                <tr>
+                    <th>id</th>
+                    <th>Зарплата</th>
+                    <th>Дата поступления на работу</th>
+                </tr>
+                {% for user in users %}
+                    <tr>
+                        <td data-model-field="pk">
+                            {{ user.pk }}
+                        </td>
+                        <td data-model-field="paycheck">
+                            {{ user.paycheck }}
+                        </td>
+                        <td data-model-field="date_joined" class="date">
+                            {{ user.date_joined|date:"d.m.Y" }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="tab">
+            <h1>Комнаты</h1>
+        </div>
+    </div>
+{% endblock %}
