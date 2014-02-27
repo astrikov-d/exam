@@ -20,14 +20,19 @@ class DynamicModel(object):
         yaml_contents = yaml.load(stream)
 
         for model in yaml_contents:
-            model_attributes = {'__module__': __name__}
+            meta = type('Meta', (), {
+                "verbose_name": yaml_contents[model]['title'],
+                "verbose_name_plural": yaml_contents[model]['title']
+            })
+            model_attributes = {
+                '__module__': __name__,
+                'Meta': meta
+            }
             for field in yaml_contents[model]['fields']:
                 model_attributes.update({field['id']: self.get_model_field(field['type'], field['title'])})
             model_object = type(model.capitalize(), (models.Model,), model_attributes)
 
             setattr(model_object, 'app_label', __name__.split('.')[-2])
-
-            model_object._meta.verbose_name = model_object._meta.verbose_name_plural = yaml_contents[model]['title']
 
             self.created_models.update({model.capitalize(): model_object})
 
@@ -40,6 +45,13 @@ class DynamicModel(object):
             return self.created_models[model_name]
         except KeyError:
             return None
+
+    def get_created_models(self):
+        """
+        Return availavle models.
+        """
+
+        return self.created_models
 
     def get_model_field(self, field_type, field_title):
         """

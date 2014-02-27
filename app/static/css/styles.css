@@ -22,7 +22,7 @@ html, body {
 }
 
 .table-wrapper {
-    padding: 20px;
+    padding: 20px 20px 20px 220px;
 }
 
 .menu-wrapper ul {
@@ -50,4 +50,12 @@ html, body {
 .data-table td, .data-table th {
     border:1px solid #ddd;
     padding:10px;
+}
+
+.table-wrapper form {
+    margin-top:40px;
+}
+
+.table-wrapper form p {
+    margin:10px 0;
 }

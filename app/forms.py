@@ -6,10 +6,14 @@ from django import forms
 from models import Models
 
 
-class UsersForm(forms.ModelForm):
-    class Meta:
-        model = Models.get_model('Users')
+class DynamicModelForm():
+    form_object = None
 
-class RoomsForm(forms.ModelForm):
-    class Meta:
-        model = Models.get_model('Rooms')
+    def __init__(self, model):
+        model = Models.get_model(model)
+        meta = type('Meta', (), {"model": model, })
+        self.form_object = type('DynamicModelForm', (forms.ModelForm,), {"Meta": meta})
+
+    def get_form(self):
+        return self.form_object
+
