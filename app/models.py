@@ -69,4 +69,4 @@ class DynamicModel(object):
             return fields['char']
 
 
-Models = DynamicModel('/app/conf/models.yaml')
+Models = DynamicModel(settings.PROJECT_ROOT + '/app/conf/models.yaml')
