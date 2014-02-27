@@ -28,7 +28,6 @@ class IndexView(View):
             qs = model.objects.all().values_list(*fields)
             fields = [f.verbose_name for f in model._meta.fields]
             form = DynamicModelForm(kwargs['model_name']).get_form()
-            print form
             response = {'fields': fields, 'data': list(qs), 'form': render_to_string('app/form.html', {'form': form})}
 
             return HttpResponse(json.dumps(response, cls=DateTimeEncoder), mimetype='application/json')
