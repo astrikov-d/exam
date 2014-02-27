@@ -25,7 +25,7 @@ class IndexView(View):
             if not model:
                 raise Http404
             fields = [f.name for f in model._meta.fields]
-            qs = model.objects.all().values_list(*fields)
+            qs = model.objects.all().order_by('id').values_list(*fields)
             fields = [f.verbose_name for f in model._meta.fields]
             form = DynamicModelForm(kwargs['model_name']).get_form()
             response = {'fields': fields, 'data': list(qs), 'form': render_to_string('app/form.html', {'form': form})}
