@@ -11,7 +11,7 @@ wsgiref==0.1.2
 Setup
 =====
 
-Create database user and database and fix db settings in conf/settings.py file. ivate you virtual environment and run:
+Create database user and database and fix db settings in conf/settings.py file. Activate you virtual environment and run:
 
 ```
 pip install -r req.txt
