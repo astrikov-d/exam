@@ -61,7 +61,7 @@ class DynamicModel(object):
         fields = {
             'char': models.CharField(max_length=32, verbose_name=field_title),
             'int': models.IntegerField(verbose_name=field_title),
-            'date': models.DateField(verbose_name=field_title)
+            'date': models.DateField(verbose_name=field_title, )
         }
         try:
             return fields[field_type]

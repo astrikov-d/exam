@@ -10,10 +10,10 @@ $(function () {
      * @returns {boolean}
      */
     function isDate(str) {
-        var t = str.match(/^(\d{2})\.(\d{2})\.(\d{4})$/);
+        var t = str.match(/^(\d{4})-(\d{2})-(\d{2})$/);
         if (t === null)
             return false;
-        var d = +t[1], m = +t[2], y = +t[3];
+        var y = +t[1], m = +t[2], d = +t[3];
         if (m >= 1 && m <= 12 && d >= 1 && d <= 31) {
             return true;
         }
@@ -38,7 +38,7 @@ $(function () {
             $(this).empty().append(code);
             if ($(this).hasClass('date')) {
                 $('#edit').datepicker({
-                    dateFormat: "dd.mm.yy",
+                    dateFormat: "yy-mm-dd",
                     onClose: function () {
                         var new_val = $('#edit').val().trim();
                         $(this).parent().empty().html(new_val);

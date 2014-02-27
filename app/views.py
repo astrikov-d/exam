@@ -8,6 +8,7 @@ from django.views.generic import View
 from django.views.generic.edit import CreateView
 from django.http import HttpResponseBadRequest, Http404, HttpResponse
 from django.template.loader import render_to_string
+from django.forms import ValidationError
 
 from utils import DateTimeEncoder
 from models import Models
@@ -51,14 +52,15 @@ class IndexView(View):
                 field = [f.name for f in model._meta.fields][int(request.POST.get('field_index'))]
                 try:
                     setattr(obj, field, cgi.escape(request.POST.get('value')))
+                    obj.full_clean()
                     obj.save()
                     response = {
                         'result': 'success'
                     }
-                except ValueError:
+                except ValidationError:
                     response = {
                         'result': 'error',
-                        'error': u'Поле %s заполнено неправильно' % field
+                        'error': u"Поле заполнено неправильно"
                     }
                 return HttpResponse(json.dumps(response, cls=DateTimeEncoder), mimetype='application/json')
             except model.DoesNotExist:
